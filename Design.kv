@@ -1,0 +1,121 @@
+WindowManager:
+    LandingScreen:
+    ColorGenerator:
+    ShowSavedColors:
+
+<LandingScreen>:
+    name: "landing screen"
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        Label:
+            text: "Main Screen"
+            font_size: 32
+
+        Button:
+            text: "Color Generator"
+            font_size: 32
+            on_release:
+                root.manager.transition.direction = 'left'
+                app.root.current = "color generator"
+
+        Button:
+            text: "show saved colors"
+            font_size: 32
+            on_release:
+                root.manager.transition.direction = 'up'
+                app.root.current = "show saved colors"
+
+
+<ColorGenerator>:
+    name: "color generator"
+
+    GridLayout:
+        cols: 3
+        rows: 1
+        size_hint: None, None
+        size: (Ascent.width + Icebox.width, Ascent.height)
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+        Image:
+            id: Ascent
+            source: "Ascent.png"
+            size_hint: None, None
+            size: 500,200
+            pos_hint: {'center_x': -0.5, 'center_y': -1}
+
+        Label:
+            id: hexcode_Value
+            text: ""
+            font_size: 25
+            valign: "center"
+
+        Image:
+            id: Icebox
+            source: "Icebox.png"
+            size_hint: None, None
+            size: 500,200
+
+
+        Button:
+            text: "Go Back"
+            font_size: 32
+            size_hint_y: None
+            size_hint_x: None
+            height: 75
+            width: 200
+            on_release:
+                root.manager.transition.direction = 'right'
+                app.root.current = "landing screen"
+
+        Button:
+            text: "Generate"
+            font_size: 32
+            size_hint_y: None
+            size_hint_x: None
+            height: 75
+            width: 200
+            pos: root.width / 2.5, 0
+            on_release: root.generate_new_crosshair_color()
+
+        Button:
+            text: "Save"
+            font_size: 32
+            size_hint_y: None
+            size_hint_x: None
+            height: 75
+            width: 200
+            pos: root.width / 1.35, 0
+            on_release: root.saveCrosshair()
+
+<ShowSavedColors>
+    name: "show saved colors"
+
+    ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+
+
+        GridLayout:
+            id: container
+            cols: 3
+            size_hint_y: None
+            height: self.minimum_height
+            padding: 0,0,0,0
+            spacing: 15,15
+
+    Button:
+        text: "Go Back"
+        font_size: 25
+        size_hint_y: None
+        size_hint_x: None
+        height: 50
+        width: 100
+        pos: root.width / 2, 0
+        on_release:
+            root.manager.transition.direction = 'down'
+            app.root.current = "landing screen"
+
+
